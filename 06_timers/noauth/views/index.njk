@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Timers</title>
+    <link rel="icon" type="image/png" href="/clock.png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/css/uikit.min.css" />
+
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      .mono {
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="app" v-cloak class="uk-container uk-margin-top uk-margin-bottom">
+      <p>
+        <form v-on:submit.prevent="createTimer">
+          <input v-model="desc" class="uk-input" placeholder="Type description...">
+          <p>
+            <button v-bind:disabled="!desc" id="start-timer" class="uk-button uk-button-primary">
+              <span uk-icon="play"></span> Start timer
+            </button>
+          </p>
+        </form>
+      </p>
+      <div>
+        <h2>Active timers:</h2>
+        <ul class="uk-list">
+          <li v-for="t in activeTimers" :key="t.id">
+            <span uk-icon="close" v-on:click="stopTimer(t.id)"></span>
+            <span class="uk-text-primary mono">{{ formatDuration(t.progress) }}</span>
+            <strong class="uk-text-emphasis">{{ t.description }}</strong>
+            <span class="uk-text-muted mono">{{ formatTime(t.start) }}</span>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Old timers:</h2>
+        <ul id="past-timers" class="uk-list">
+          <li v-for="t in oldTimers" :key="t.id">
+            <span class="uk-text-primary mono">{{ formatDuration(t.duration) }}</span>
+            <strong class="uk-text-emphasis">{{ t.description }}</strong>
+            (<span class="uk-text-muted mono">{{ formatTime(t.start) }}</span>
+            &ndash;
+            <span class="uk-text-muted mono">{{ formatTime(t.end) }}</span>)
+          </li>
+        </ul>
+      </div>
+
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit-icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script src="/main.js"></script>
+  </body>
+</html>
