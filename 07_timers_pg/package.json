@@ -13,7 +13,7 @@
     "lint:all": "eslint \"**/*.js\"",
     "db:migrate": "knex migrate:latest",
     "dev": "cross-env npm run db:migrate && nodemon index.js -e js,njk",
-    "start": "cross-env npm run db:migrate && node index.js"
+    "start": "node index.js"
   },
   "engines": {
     "node": ">=12.0.0"
